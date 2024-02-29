@@ -1,0 +1,41 @@
+#include<iostream>
+using namespace std;
+void selection(int a[],int n)
+{
+    int c=0,s=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            c++;
+            if(a[i]>a[j])
+            {
+                int temp=a[i];
+                a[i]=a[j];
+                a[j]=temp;
+                s++;
+            }
+        }
+    }
+    for(int i=0;i<n;i++)
+        cout<<a[i]<<" ";
+    cout<<endl;
+    cout<<"swaps="<<s<<endl;
+    cout<<"comparisons="<<c<<endl;
+}
+int main()
+{
+    int t;
+    cout<<"enter number of test cases";
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cout<<"enter size";
+        cin>>n;
+        int a[n];
+        for(int i=0;i<n;i++)
+            cin>>a[i];
+        selection(a,n);
+    }
+}
