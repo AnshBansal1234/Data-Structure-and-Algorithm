@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+int quickselect(vector<int>& arr, int low, int high, int k) {
+    if (low <= high) {
+        int pivotIndex = partition(arr, low, high);
+        if (pivotIndex == k - 1) {
+            return arr[pivotIndex];
+        } else if (pivotIndex > k - 1) {
+            return quickselect(arr, low, pivotIndex - 1, k);
+        } else {
+            return quickselect(arr, pivotIndex + 1, high, k);
+        }
+    }
+    return -1; // Return -1 if input is invalid
+}
+
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int n, k;
+        cin >> n;
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+        cin >> k;
+
+        // Finding Kth smallest element
+        int kthSmallest = quickselect(arr, 0, n - 1, k);
+        cout << "Kth smallest element: " << kthSmallest << endl;
+
+        // Finding Kth largest element
+        int kthLargest = quickselect(arr, 0, n - 1, n - k + 1);
+        cout << "Kth largest element: " << kthLargest << endl;
+    }
+    return 0;
+}
